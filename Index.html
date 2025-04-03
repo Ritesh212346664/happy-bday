@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday BU!</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ffccff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .countdown {
+            font-size: 40px;
+            margin-top: 20px;
+            color: #ff0066;
+        }
+        .hidden {
+            display: none;
+        }
+        .shayari {
+            font-size: 24px;
+            color: #ff3399;
+            margin-top: 20px;
+            animation: fadeInOut 4s infinite;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday BU! 🎂🎉</h1>
+    <div id="countdown" class="countdown"></div>
+    <div id="celebration" class="hidden">
+        <h2>🎉 Surprise for Du Meri Bevi Jaan! 🎉</h2>
+        <img src="https://media.tenor.com/Ox0gWoy5rD8AAAAC/happy-birthday.gif" alt="Cake Cutting">
+        <p id="shayari" class="shayari"></p>
+        <audio id="song" src="happy_birthday_song.mp3"></audio>
+    </div>
+    <script>
+        let countdownElement = document.getElementById('countdown');
+        let celebrationElement = document.getElementById('celebration');
+        let shayariElement = document.getElementById('shayari');
+        let song = document.getElementById('song');let shayaris = [
+        "Du Meri Bevi Jaan, teri hasi meri jaan hai! ❤️",
+        "Tu hai meri duniya, tujhpe sab kuch qurban hai! 💖",
+        "Har pal tera saath, meri zindagi ka sabse bada sukoon hai!",
+        "Meri duaaon ka asar, tu meri roshni ka safar!",
+        "Har saans ke saath, bas tu hi tu hai!",
+        "Meri duniya tujhse roshan hai, tu meri rooh ka geet hai!",
+        "Tere bina adhura hoon, tu meri duniya ka sabse pyara hissa hai!",
+        "Tu meri duaon ka jawab hai, tujhse zindagi behtareen hai!",
+        "Meri har subah tujhse shuru, meri har raat tujhpe khatam!",
+        "Du Meri Bevi Jaan, tu meri har muskurahat ka sabab hai!"
+    ];
+    
+    function updateShayari() {
+        let index = Math.floor(Math.random() * shayaris.length);
+        shayariElement.textContent = shayaris[index];
+    }
+    
+    let birthday = new Date();
+    birthday.setHours(0, 0, 0, 0);
+    birthday.setDate(birthday.getDate() + 1);
+    
+    function updateCountdown() {
+        let now = new Date();
+        let diff = birthday - now;
+        if (diff <= 0) {
+            countdownElement.classList.add('hidden');
+            celebrationElement.classList.remove('hidden');
+            song.play();
+            setInterval(updateShayari, 4000);
+            return;
+        }
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((diff / (1000 * 60)) % 60);
+        let seconds = Math.floor((diff / 1000) % 60);
+        countdownElement.textContent = `Time Left: ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
